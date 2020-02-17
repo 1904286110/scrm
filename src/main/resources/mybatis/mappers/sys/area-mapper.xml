@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.scrm.sys.area.dao.AreaDao">
+	<select id="findByParent" resultType="Area">
+		SELECT ROW_ID,AREA_CODE,AREA_NAME, PARENT_CODE,AREA_RUNK,HAS_CHILD,ACTIVE_FLAG,CREATE_BY, CREATE_DATE,UPDATE_BY,UPDATE_DATE FROM TB_CD_AREA WHERE PARENT_CODE = #{parentCode}
+	</select>
+</mapper>
