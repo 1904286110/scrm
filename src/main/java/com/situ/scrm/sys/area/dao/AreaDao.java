@@ -20,5 +20,6 @@ import com.situ.scrm.sys.area.domain.Area;
  */
 @Repository
 public interface AreaDao {
+	
 	List<Area> findByParent(Long parentCode);
 }
