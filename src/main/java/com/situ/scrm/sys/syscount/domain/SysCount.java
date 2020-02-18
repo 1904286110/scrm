@@ -21,6 +21,7 @@ public class SysCount extends BaseClass implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final String INDEX1 = "INDEX1";
 	public static final String INDEX2 = "INDEX2";
+	public static final String INDEX3 = "INDEX3";
 	private Integer index1;// 订单编号#每天重置
 	private Integer index2;// 资源编号#无需重置
 	private Integer index3;// 系统预留
