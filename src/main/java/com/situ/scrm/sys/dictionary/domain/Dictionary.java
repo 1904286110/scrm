@@ -14,7 +14,7 @@ public class Dictionary extends BaseClass implements Serializable {
 	private String parentKey;// 父类字典KEY
 	private String dictKey;// 字典KEY
 	private String dictInfo;// 字典的描述
-	private Integer dictValue;// 字典的值
+	private String dictValue;// 字典编码
 	private Integer dictOrder;// 排序
 	private Integer hasChild;// 是否有子数据#1:是;0:否;
 	/* 额外的信息 -开始*/
@@ -52,12 +52,8 @@ public class Dictionary extends BaseClass implements Serializable {
 	public void setDictInfo(String dictInfo) {
 		this.dictInfo = dictInfo;
 	}
-	public Integer getDictValue() {
-		return dictValue;
-	}
-	public void setDictValue(Integer dictValue) {
-		this.dictValue = dictValue;
-	}
+	
+	
 	public Integer getDictOrder() {
 		return dictOrder;
 	}
@@ -69,6 +65,12 @@ public class Dictionary extends BaseClass implements Serializable {
 	}
 	public void setHasChild(Integer hasChild) {
 		this.hasChild = hasChild;
+	}
+	public String getDictValue() {
+		return dictValue;
+	}
+	public void setDictValue(String dictValue) {
+		this.dictValue = dictValue;
 	}
 	
 }
