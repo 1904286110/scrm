@@ -72,6 +72,7 @@ public class RoleServiceImpl implements RoleService {
 		role.setActiveFlag(1);
 		role.setCreateBy("SYS");
 		role.setCreateDate(new Date());
+		
 		roleDao.save(role);
 		return role.getRowId();
 	}
@@ -181,12 +182,22 @@ public class RoleServiceImpl implements RoleService {
 		List<RoleResource> saveList = new ArrayList<RoleResource>();
 		// 先将原来的数据设置为失效
 		roleResourceDao.updateFail(roleId);
+		//数据库中原有的该角色的资源的数量
 		int haveCount = havedResourceList.size();
 		Date date = new Date();
+		//遍历前台传过来的rescCode集合
 		for (int index = 0; index < rescCodeList.size(); index++) {
 			String rescCode = rescCodeList.get(index);
+			/*
+			 * 当前台传过来的数量小于原有数量时，执行修改
+			 * 
+			 * 当前台传过来的数量大于原有数量时，执行新增
+			 * 
+			 */
 			if (index < haveCount) {
+				//取出数据库原有位置的值
 				RoleResource editRoleResource = havedResourceList.get(index);
+				//重新赋值
 				editRoleResource.setRoleId(roleId);
 				editRoleResource.setRescCode(rescCode);
 				editRoleResource.setActiveFlag(1);

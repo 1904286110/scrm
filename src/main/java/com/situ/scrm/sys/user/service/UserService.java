@@ -1,5 +1,7 @@
 package com.situ.scrm.sys.user.service;
 
+import java.util.List;
+
 import com.situ.scrm.commons.domain.LayResult;
 import com.situ.scrm.sys.user.domain.User;
 
@@ -60,4 +62,8 @@ public interface UserService {
 	 * @return
 	 */
 	LayResult findUserByPage(Integer page, Integer limit, User searchUser);
+
+
+   List<User> findAllUser();
+
 }

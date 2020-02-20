@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.situ.scrm.sys.user.dao.UserDao">
 	<sql id="user_base_column">
-		USER_NAME,USER_CODE,USER_PASS,USER_PHONE,USER_AVATAR,USER_KIND,IS_LOCK,LOGIN_COUNT,LOGIN_IP,LOGIN_DATE,ACTIVE_FLAG,CREATE_BY,CREATE_DATE
+		USER_NAME,USER_CODE,USER_PASS,PARENT_CODE,ROLE_CODE,USER_KIND,IS_LOCK,LOGIN_COUNT,LOGIN_IP,LOGIN_DATE,ACTIVE_FLAG,CREATE_BY,CREATE_DATE
 	</sql>
 	<sql id="user_base_select">
 		SELECT ROW_ID,
@@ -22,11 +22,11 @@
 		<if test="userPass != null">
 			USER_PASS,
 		</if>
-		<if test="userPhone != null">
-			USER_PHONE,
+		<if test="parentCode != null">
+			PARENT_CODE,
 		</if>
-		<if test="userAvatar != null">
-			USER_AVATAR,
+		<if test="roleCode != null">
+			ROLE_CODE,
 		</if>
 		<if test="userKind != null">
 			USER_KIND,
@@ -62,49 +62,49 @@
 	<!-- Values 语句 -->
 	<sql id="values_fragement">
 		<if test="userName != null">
-			#{userName,jdbcType=VARCHAR},
+			#{userName},
 		</if>
 		<if test="userCode != null">
-			#{userCode,jdbcType=VARCHAR},
+			#{userCode},
 		</if>
 		<if test="userPass != null">
-			#{userPass,jdbcType=VARCHAR},
+			#{userPass},
 		</if>
-		<if test="userPhone != null">
-			#{userPhone,jdbcType=VARCHAR},
+		<if test="parentCode != null">
+			#{parentCode},
 		</if>
-		<if test="userAvatar != null">
-			#{userAvatar,jdbcType=VARCHAR},
+		<if test="roleCode != null">
+			#{roleCode},
 		</if>
 		<if test="userKind != null">
-			#{userKind,jdbcType=INTEGER},
+			#{userKind},
 		</if>
 		<if test="isLock != null">
-			#{isLock,jdbcType=INTEGER},
+			#{isLock},
 		</if>
 		<if test="loginCount != null">
-			#{loginCount,jdbcType=INTEGER},
+			#{loginCount},
 		</if>
 		<if test="loginIp != null">
-			#{loginIp,jdbcType=VARCHAR},
+			#{loginIp},
 		</if>
 		<if test="loginDate != null">
-			#{loginDate,jdbcType=TIMESTAMP},
+			#{loginDate},
 		</if>
 		<if test="activeFlag != null">
-			#{activeFlag,jdbcType=INTEGER},
+			#{activeFlag},
 		</if>
 		<if test="createBy != null">
-			#{createBy,jdbcType=VARCHAR},
+			#{createBy},
 		</if>
 		<if test="createDate != null">
-			#{createDate,jdbcType=TIMESTAMP},
+			#{createDate},
 		</if>
 		<if test="updateBy != null">
-			#{updateBy,jdbcType=VARCHAR},
+			#{updateBy},
 		</if>
 		<if test="updateDate != null">
-			#{updateDate,jdbcType=TIMESTAMP},
+			#{updateDate},
 		</if>
 	</sql>
 	<insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="rowId" keyColumn="ROW_ID">
@@ -120,52 +120,52 @@
 		UPDATE BT_SYS_USER
 		<set>
 			<if test="userName != null">
-				USER_NAME = #{userName,jdbcType=VARCHAR},
+				USER_NAME = #{userName},
 			</if>
 			<if test="userCode != null">
-				USER_CODE = #{userCode,jdbcType=VARCHAR},
+				USER_CODE = #{userCode},
 			</if>
 			<if test="userPass != null">
-				USER_PASS = #{userPass,jdbcType=VARCHAR},
+				USER_PASS = #{userPass},
 			</if>
-			<if test="userPhone != null">
-				USER_PHONE = #{userPhone,jdbcType=VARCHAR},
+			<if test="parentCode != null">
+				PARENT_CODE = #{parentCode},
 			</if>
-			<if test="userAvatar != null">
-				USER_AVATAR = #{userAvatar,jdbcType=VARCHAR},
+			<if test="roleCode != null">
+				ROLE_CODE = #{roleCode},
 			</if>
 			<if test="userKind != null">
-				USER_KIND = #{userKind,jdbcType=INTEGER},
+				USER_KIND = #{userKind},
 			</if>
 			<if test="isLock != null">
-				IS_LOCK = #{isLock,jdbcType=INTEGER},
+				IS_LOCK = #{isLock},
 			</if>
 			<if test="loginCount != null">
-				LOGIN_COUNT = #{loginCount,jdbcType=INTEGER},
+				LOGIN_COUNT = #{loginCount},
 			</if>
 			<if test="loginIp != null">
-				LOGIN_IP = #{loginIp,jdbcType=VARCHAR},
+				LOGIN_IP = #{loginIp},
 			</if>
 			<if test="loginDate != null">
-				LOGIN_DATE = #{loginDate,jdbcType=TIMESTAMP},
+				LOGIN_DATE = #{loginDate},
 			</if>
 			<if test="activeFlag != null">
-				ACTIVE_FLAG = #{activeFlag,jdbcType=INTEGER},
+				ACTIVE_FLAG = #{activeFlag},
 			</if>
 			<if test="createBy != null">
-				CREATE_BY = #{createBy,jdbcType=VARCHAR},
+				CREATE_BY = #{createBy},
 			</if>
 			<if test="createDate != null">
-				CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+				CREATE_DATE = #{createDate},
 			</if>
 			<if test="updateBy != null">
-				UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+				UPDATE_BY = #{updateBy},
 			</if>
 			<if test="updateDate != null">
-				UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+				UPDATE_DATE = #{updateDate},
 			</if>
 		</set>
-		WHERE ROW_ID = #{rowId,jdbcType=DECIMAL}
+		WHERE ROW_ID = #{rowId}
 	</insert>
 	<delete id="delete">
 		DELETE FROM BT_SYS_USER WHERE ROW_ID = #{rowId}
@@ -173,7 +173,7 @@
 	<select id="find" resultType="User">
 		<include refid="user_base_select" />
 	</select>
-	<select id="findByPage" resultType="Role">
+	<select id="findByPage" resultType="User">
 		<include refid="user_base_select" />
 		<!-- 引入多条件查询的语句 -->
 		<include refid="search_fragement" />
@@ -210,42 +210,14 @@
 	<!-- 拼接多条件查询的SQL语句 -->
 	<sql id="search_fragement">
 		<if test="searchParam!=null">
-			<if test="searchParam.rowId!=null">
-				AND ROW_ID = #{searchParam.rowId}
-			</if>
+			
 			<if test="searchParam.userName != null">
-				AND USER_NAME = #{searchParam.userName},
+				AND USER_NAME = #{searchParam.userName}
 			</if>
 			<if test="searchParam.userCode != null">
-				AND USER_CODE = #{searchParam.userCode},
+				AND USER_CODE = #{searchParam.userCode}
 			</if>
-			<if test="searchParam.userPass != null">
-				AND USER_PASS = #{searchParam.userPass},
-			</if>
-			<if test="searchParam.userPhone != null">
-				AND USER_PHONE = #{searchParam.userPhone},
-			</if>
-			<if test="searchParam.userAvatar != null">
-				AND USER_AVATAR = #{searchParam.userAvatar},
-			</if>
-			<if test="searchParam.userKind != null">
-				AND USER_KIND = #{searchParam.userKind},
-			</if>
-			<if test="searchParam.isLock != null">
-				AND IS_LOCK = #{searchParam.isLock},
-			</if>
-			<if test="searchParam.loginCount != null">
-				AND LOGIN_COUNT = #{searchParam.loginCount},
-			</if>
-			<if test="searchParam.loginIp != null">
-				AND LOGIN_IP = #{searchParam.loginIp},
-			</if>
-			<if test="searchParam.loginDate != null">
-				AND LOGIN_DATE = #{searchParam.loginDate},
-			</if>
-			<if test="searchParam.activeFlag!=null">
-				AND ACTIVE_FLAG = #{searchParam.activeFlag}
-			</if>
+	
 		</if>
 	</sql>
 </mapper>

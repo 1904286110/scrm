@@ -15,13 +15,7 @@
 					<!-- 搜索表单 开始  -->
 					<form class="layui-form" id="form_search">
 						<div class="layui-search-form">
-							<div class="layui-inline">
-								<select name="parentCode">
-									<option value>上级用户</option>
-									<option value="1"></option>
-									<option value="0"></option>
-								</select>
-							</div>
+							
 							<div class="layui-inline">
 								<input name="userName" placeholder="用户名称" autocomplete="off" class="layui-input">
 							</div>
@@ -44,7 +38,7 @@
 					</form>
 					<!-- 搜索表单 结束  -->
 					<!-- 页面表格 开始  -->
-					<table id="filter_table" lay-filter="filter_table"></table>
+					<table id="list_table" lay-filter="filter_table"></table>
 					<!-- 页面表格 结束  -->
 				</div>
 			</div>
@@ -56,15 +50,23 @@
 <input type="hidden" id="hideTitle" value="用户"/>
 <!-- 修改，删除 按钮 -->
 <!-- 此处注意：必须有lay-event 才能通过table.on完成事件的绑定 -->
-<script type="text/html" id="userBtnTpl">
+<script type="text/html" id="userLockTpl">
 
 {{# if(d.isLock ==1){ }}
-     <a class="layui-btn layui-btn-xs" lay-event="edit">解锁</a>
+     <a class="layui-btn layui-btn-xs" lay-event="unlock">解锁</a>
 	<button type="button" class="layui-btn layui-btn-xs layui-btn-disabled">锁定</button>
 {{# }else{  }}
-	<button type="button" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">锁定</button>
+	<button type="button" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="lock">锁定</button>
     <button type="button" class="layui-btn layui-btn-xs layui-btn-disabled" >解锁</button>
  {{#  } }}
+</script>
+
+<script type="text/html" id="userBtnTpl">
+
+	<a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+
+	<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</a>
+
 </script>
 
 <!-- 引入自定义的JS脚本 -->

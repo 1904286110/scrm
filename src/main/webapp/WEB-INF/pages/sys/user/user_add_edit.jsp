@@ -6,19 +6,26 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">用户角色</label>
 		<div class="layui-input-block" lay-verify="onechecked">
+		  <select name="roleCode">
 			<c:if test="${!empty roleList}">
 			<c:forEach items="${roleList}" var="role">
-			<input type="checkbox" name="stuLikes" value="${role.roleCode}" title="${role.roleName}"> 
+			<option value="${role.roleCode}">${role.roleName}</option>
+			 
 			</c:forEach>
 			</c:if>
+			</select>
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">上级用户</label>
 		<div class="layui-input-block">
 			<select name="parentCode">
-				<option value="1">超级角色</option>
-				<option value="0">普通角色</option>
+				<option value="-1">一级用户</option>
+				<c:if test="${!empty userList}">
+			<c:forEach items="${userList}" var="user">
+				<option value="${user.userCode}">${user.userName}</option>
+				</c:forEach>
+				</c:if>
 			</select>
 		</div>
 	</div>
@@ -33,7 +40,7 @@
 		<label class="layui-form-label">登录账号</label>
 		<div class="layui-input-block">
 			<!-- lay-verify 这个layui的自定义属性 ，设置表单的校验，多个校验 用 ‘|’ 隔开  -->
-			<input name="userCode" lay-verify="required|checkusercode" id="userCode" placeholder="请输入登录账号" autocomplete="off" class="layui-input">
+			<input name="userCode" lay-verify="required|checkusercode" id="userCode" placeholder="请输入登录账号" autocomplete="off" class="layui-input check-unique">
 		</div>
 	</div>
 	<div class="layui-form-item layui-form-text">
