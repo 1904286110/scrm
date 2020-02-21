@@ -2,6 +2,9 @@ package com.situ.scrm.sys.user.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import com.situ.scrm.commons.domain.LayResult;
 import com.situ.scrm.sys.user.domain.User;
 
@@ -65,5 +68,11 @@ public interface UserService {
 
 
    List<User> findAllUser();
+   
+   
+   Integer update4Lock(Long rowId, Integer isLock);
+   
+   
+ LayResult doUserLogin(User loginUserParam,HttpSession session, HttpServletResponse response); 
 
 }

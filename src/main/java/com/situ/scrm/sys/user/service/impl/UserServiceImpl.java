@@ -3,6 +3,9 @@ package com.situ.scrm.sys.user.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import com.situ.scrm.commons.domain.LayResult;
 import com.situ.scrm.sys.user.dao.UserDao;
 import com.situ.scrm.sys.user.domain.User;
 import com.situ.scrm.sys.user.service.UserService;
+import com.situ.scrm.utils.AppConfig;
 import com.situ.scrm.utils.DAOUtils;
 import com.situ.scrm.utils.MD5Utils;
 
@@ -93,4 +97,39 @@ public class UserServiceImpl implements UserService {
 		
 		return userDao.find();
 	}
+
+	@Override
+	public Integer update4Lock(Long rowId, Integer isLock) {
+		userDao.update4Lock(rowId, isLock);
+		return 1;
+	}
+
+	@Override
+	public LayResult doUserLogin(User loginUserParam, HttpSession session, HttpServletResponse response) {
+		Integer code = 0;
+		String msg ="";
+		String userCode = loginUserParam. getUserCode();
+		String userPass = loginUserParam. getUserPass();
+		User loginUser = userDao.findByCodeAndPass(userCode,MD5Utils.encode(userPass));
+		if(loginUser!=null) {
+		  Integer isLock = loginUser.getIsLock();
+		  if(isLock==0) {
+			  code=1;
+		  }else {
+			  msg ="用户被锁定,请联系管理员!";
+		  }
+		}else {
+			msg = "用户名或密码错误!";
+		}
+		
+		
+		
+		return new LayResult(code, msg, null);
+	}
+	
+	private void hanlderUserLoginEdData(User loginUser, HttpSession session) {
+		
+	}
+	
+
 }

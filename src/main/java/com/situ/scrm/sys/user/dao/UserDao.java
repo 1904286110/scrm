@@ -1,5 +1,6 @@
 package com.situ.scrm.sys.user.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.situ.scrm.commons.dao.BaseDao;
@@ -14,4 +15,9 @@ public interface UserDao extends BaseDao<User> {
 	 * @return
 	 */
 	User getUserByCode(String userCode);
+	
+	void update4Lock(@Param("rowId")Long rowId, @Param("isLock")Integer isLock);
+    
+	User findByCodeAndPass(@Param("userCode")String userCode,@Param("userPass")String userPass);
+   
 }

@@ -53,10 +53,11 @@
 <script type="text/html" id="userLockTpl">
 
 {{# if(d.isLock ==1){ }}
-     <a class="layui-btn layui-btn-xs" lay-event="unlock">解锁</a>
-	<button type="button" class="layui-btn layui-btn-xs layui-btn-disabled">锁定</button>
+ <button type="button" class="layui-btn layui-btn-xs layui-btn-disabled">锁定</button>   
+ <a class="layui-btn layui-btn-xs" lay-event="unlock">解锁</a>
+	
 {{# }else{  }}
-	<button type="button" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="lock">锁定</button>
+	<button type="button" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="locked">锁定</button>
     <button type="button" class="layui-btn layui-btn-xs layui-btn-disabled" >解锁</button>
  {{#  } }}
 </script>

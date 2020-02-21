@@ -130,6 +130,40 @@ layui.use([ 'layer', 'table', 'form' ], function() {
 			});
 		}
 		break;
+		case 'locked':
+			//让用户再进行一次确认
+			layer.confirm('你确定要锁定码？',function(index){
+				
+				$.ajax({
+					type:'put',
+					url:'user/dolock/'+rowId,
+					success:function(result){
+						if(result){
+							
+							table.reload('list_table');
+							
+							layer.close(index);
+						}
+					}
+				});
+			});
+			break;
+		case 'unlock':{
+
+				$.ajax({
+					type:'put',
+					url:'user/unlock/'+rowId,
+					success:function(result){
+						if(result){
+							
+							table.reload('list_table');
+							
+							layer.closeAll();
+						}
+					}
+				});
+		}
+			break;
 		default:
 			break;
 		}
