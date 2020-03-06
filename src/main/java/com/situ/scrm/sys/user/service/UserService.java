@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.situ.scrm.commons.domain.LayResult;
+import com.situ.scrm.sys.sysresource.domain.SysResource;
 import com.situ.scrm.sys.user.domain.User;
 
 public interface UserService {
@@ -74,5 +75,10 @@ public interface UserService {
    
    
  LayResult doUserLogin(User loginUserParam,HttpSession session, HttpServletResponse response); 
+
+
+  List<SysResource> findAuthResourceList(HttpSession session); 
+
+
 
 }

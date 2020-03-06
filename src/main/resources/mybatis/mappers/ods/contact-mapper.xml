@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.scrm.ods.contact.dao.ContactDao">
+	<sql id="contact_base_column">
+		CONT_CODE,USER_CODE,CUST_NAME,CONT_TYPE,CONT_STATUS,IS_CLOSE,NEXT_CONT_DATE,IS_REMIND,CUST_FILE,CUST_INFO,ACTIVE_FLAG,CREATE_BY,CREATE_DATE
+	</sql>
+	<sql id="contact_base_select">
+		SELECT ROW_ID,
+		<include refid="contact_base_column" />
+		, UPDATE_BY,UPDATE_DATE FROM BT_ODS_CONTACT WHERE ACTIVE_FLAG = 1
+	</sql>
+		<sql id="view_base_select">
+		SELECT ROW_ID,PARENT_CODE,USER_NAME,
+		<include refid="contact_base_column" />
+		, UPDATE_BY,UPDATE_DATE FROM V_CONTACT WHERE ACTIVE_FLAG = 1
+	</sql>
+	<!-- Column 语句 -->
+	<sql id="column_fragement">
+		<if test="contCode != null">
+			CONT_CODE,
+		</if>
+		<if test="userCode != null">
+			USER_CODE,
+		</if>
+		<if test="custName != null">
+			CUST_NAME,
+		</if>
+		<if test="contType != null">
+			CONT_TYPE,
+		</if>
+		
+		<if test="contStatus != null">
+			CONT_STATUS,
+		</if>
+		<if test="isClose != null">
+			IS_CLOSE,
+		</if>
+		<if test="nextContDate != null">
+			NEXT_CONT_DATE,
+		</if>
+		<if test="isRemind != null">
+			IS_REMIND,
+		</if>
+		<if test="contFile != null">
+			CUST_FILE,
+		</if>
+		<if test="contInfo != null">
+			CUST_INFO,
+		</if>
+		<if test="activeFlag != null">
+			ACTIVE_FLAG,
+		</if>
+		<if test="createBy != null">
+			CREATE_BY,
+		</if>
+		<if test="createDate != null">
+			CREATE_DATE,
+		</if>
+		<if test="updateBy != null">
+			UPDATE_BY,
+		</if>
+		<if test="updateDate != null">
+			UPDATE_DATE,
+		</if>
+	</sql>
+	<!-- Values 语句 -->
+	<sql id="values_fragement">
+		<if test="contCode != null">
+			#{contCode},
+		</if>
+		<if test="userCode != null">
+			#{userCode},
+		</if>
+		<if test="custName != null">
+			#{custName},
+		</if>
+		<if test="contType != null">
+			#{contType},
+		</if>
+		
+		<if test="contStatus != null">
+			#{contStatus},
+		</if>
+		<if test="isClose != null">
+			#{isClose},
+		</if>
+		<if test="nextContDate != null">
+			#{nextContDate},
+		</if>
+		<if test="isRemind != null">
+			#{isRemind},
+		</if>
+		<if test="contFile != null">
+			#{contFile},
+		</if>
+		<if test="contInfo != null">
+			#{contInfo},
+		</if>
+		<if test="activeFlag != null">
+			#{activeFlag},
+		</if>
+		<if test="createBy != null">
+			#{createBy},
+		</if>
+		<if test="createDate != null">
+			#{createDate},
+		</if>
+		<if test="updateBy != null">
+			#{updateBy},
+		</if>
+		<if test="updateDate != null">
+			#{updateDate},
+		</if>
+	</sql>
+	<insert id="save" parameterType="Contact" useGeneratedKeys="true" keyProperty="rowId" keyColumn="ROW_ID">
+		INSERT INTO BT_ODS_CONTACT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<include refid="column_fragement" />
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<include refid="values_fragement" />
+		</trim>
+	</insert>
+
+	<select id="get" resultType="Contact">
+		<include refid="contact_base_select" />
+		AND ROW_ID = #{rowId}
+	</select>
+	<select id="find" resultType="Contact">
+		<include refid="contact_base_select" />
+	</select>
+	<select id="getCount" resultType="java.lang.Integer">
+		SELECT COUNT(ROW_ID) FROM V_CONTACT WHERE ACTIVE_FLAG = 1
+		<!-- 引入多条件查询的语句 -->
+		<include refid="search_fragement" />
+	</select>
+	
+		<select id="getToDoCount" resultType="java.lang.Integer">
+		SELECT COUNT(ROW_ID) FROM BT_ODS_CONTACT WHERE ACTIVE_FLAG = 1
+		AND IS_REMIND=1 AND USER_CODE = #{userCode} AND NEXT_CONT_DATE <![CDATA[<=]]>#{checkDate}
+	</select>
+	
+	<select id="findByPage" resultType="Contact">
+		<include refid="view_base_select" />
+		<!-- 引入多条件查询的语句 -->
+		<include refid="search_fragement" />
+		<!-- 执行分页的语句 -->
+		LIMIT #{pagination.firstResult},#{pagination.maxResults}
+	</select>
+
+	
+		<select id="getByCode" resultType="Contact">
+		<include refid="view_base_select" />
+		AND CONT_CODE = #{contCode}
+	</select>
+	<update id="changeByCode">
+	UPDATE bt_ods_contact SET IS_REMIND=0 WHERE IS_REMIND=1 AND CONT_CODE=#{contCode}
+	
+	</update>
+	<select id="findBarData4ContType" resultType="ChartsData">
+	SELECT COUNT(ROW_ID) AS DATA_COUNT,CONT_TYPE AS KEY_CODE FROM BT_ODS_CONTACT GROUP BY CONT_TYPE
+	
+	</select>
+	
+		<select id="findBarData4ContStatus" resultType="ChartsData">
+	SELECT COUNT(ROW_ID) AS DATA_COUNT,CONT_STATUS AS KEY_CODE FROM BT_ODS_CONTACT GROUP BY CONT_STATUS
+	
+	</select>
+	
+	  <update id="updateBycheckDate">
+  
+  UPDATE bt_ods_contact SET IS_REMIND=0 WHERE ACTIVE_FLAG = 1
+  AND IS_REMIND=1 AND CREATE_DATE <![CDATA[<]]>#{checkDate}
+  
+  </update>
+	<!-- 拼接多条件查询的SQL语句 -->
+	<sql id="search_fragement">
+		<if test="searchParam!=null">
+			<if test="searchParam.parentCode!=null">
+				AND PARENT_CODE = #{searchParam.parentCode}
+			</if>
+			<if test="searchParam.userCode!=null">
+				AND USER_CODE = #{searchParam.userCode}
+			</if>
+
+		</if>
+	</sql>
+</mapper>

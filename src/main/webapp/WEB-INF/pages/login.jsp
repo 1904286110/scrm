@@ -39,15 +39,15 @@
         <div class="layui-form login-form">
             <form class="layui-form" id="form_login" >
                 <div class="layui-form-item logo-title">
-                    <h1>LayuiMini后台登录</h1>
+                    <h1>后台登录</h1>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-username" for="username"></label>
-                    <input type="text" name="userCode" lay-verify="required|account" placeholder="用户名或者邮箱" autocomplete="off" class="layui-input" value="admin">
+                    <input type="text" name="userCode" lay-verify="required|account" placeholder="用户名或者邮箱" autocomplete="off" class="layui-input" >
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-icon layui-icon-password" for="password"></label>
-                    <input type="password" name="userPass" lay-verify="required|password" placeholder="密码" autocomplete="off" class="layui-input" value="123456">
+                    <input type="password" name="userPass" lay-verify="required|password" placeholder="密码" autocomplete="off" class="layui-input" >
                 </div>
                <!--  <div class="layui-form-item">
                     <label class="layui-icon layui-icon-vercode" for="captcha"></label>

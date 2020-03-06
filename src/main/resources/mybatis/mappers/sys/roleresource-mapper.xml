@@ -14,6 +14,12 @@
 	<select id="findCode" resultType="java.lang.String">
 		SELECT RESC_CODE FROM BT_SYS_ROLE_RESOURCE WHERE ACTIVE_FLAG = 1 AND ROLE_ID = #{roleId}
 	</select>
+	
+	<select id="findCodeByRole" resultType="java.lang.String">
+		SELECT RESC_CODE FROM BT_SYS_ROLE_RESOURCE WHERE ACTIVE_FLAG = 1 AND RESC_CODE = #{rescCode}
+	</select>
+	
+	
 	<select id="findAll" resultType="RoleResource">
 		SELECT ROW_ID,
 		<include refid="role_resource_base_column" />FROM BT_SYS_ROLE_RESOURCE 

@@ -87,7 +87,7 @@ public class DictionaryController implements Serializable {
 	
 	/**
 	 * @Title: goAddChildForm
-	 * @Description:(进新增自资源)
+	 * @Description:(进新增子资源)
 	 * @param modelAndView
 	 * @return
 	 */

@@ -137,25 +137,15 @@ public class UserController implements Serializable {
 	}
 	/**
 	 * @Title: doLock
-	 * @Description:(执行锁定)
+	 * @Description:(执行锁定/解除锁定)
 	 * @param rowId
 	 * @return
 	 */
-	@PutMapping("/dolock/{rowId}")
-     public Integer doLock(@PathVariable("rowId") Long rowId) {
+	@PutMapping("/dolock")
+     public Integer doLock(Long rowId,Integer islock) {
 		
-		return userService.update4Lock(rowId, 1);
+		return userService.update4Lock(rowId, islock);
 	}
 	
-	/**
-	 * @Title: doUnLock
-	 * @Description:(解除锁定)
-	 * @param rowId
-	 * @return
-	 */
-	@PutMapping("/unlock/{rowId}")
-     public Integer doUnLock(@PathVariable("rowId") Long rowId) {
-		
-		return userService.update4Lock(rowId, 0);
-	}
+
 }

@@ -238,4 +238,28 @@ public class DictionaryServiceImpl implements Serializable, DictionaryService {
 		}
 		return dictionaryMap;
 	}
+
+	@Override
+	public List<Dictionary> useDictionaryList() {
+		List<Dictionary> allDictionaryList = new ArrayList<Dictionary>();
+		Map<String, List<Dictionary>> dictionaryMap = buildDictionaryMap();
+		if (dictionaryMap != null) {
+			List<Dictionary> dictionaryList = dictionaryMap.get(SysResource.DEFAULT_PARENT_CODE);
+			if (dictionaryList != null) {
+				for (Dictionary dictionary : dictionaryList) {
+					// 判断是否有子数据
+					Integer hasChild = dictionary.getHasChild();
+					// 如果有子数据
+					if (hasChild == 1) {
+						// 通过递归方法(重复调用本身)将所有资源的子数据处理成功。
+						callBackChildList(dictionary, dictionaryMap);
+					}
+					allDictionaryList.add(dictionary);
+				}
+			}
+
+		}
+		
+		return allDictionaryList;
+	}
 }

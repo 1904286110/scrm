@@ -22,10 +22,14 @@ public class SysCount extends BaseClass implements Serializable {
 	public static final String INDEX1 = "INDEX1";
 	public static final String INDEX2 = "INDEX2";
 	public static final String INDEX3 = "INDEX3";
+	public static final String INDEX4 = "INDEX4";
+	public static final String INDEX5 = "INDEX5";
 	private Integer index1;// 订单编号#每天重置
 	private Integer index2;// 资源编号#无需重置
 	private Integer index3;// 系统预留
-
+	private Integer index4;
+	private Integer index5;
+	private Integer index6;
 	public Integer getIndex1() {
 		return index1;
 	}
@@ -49,4 +53,29 @@ public class SysCount extends BaseClass implements Serializable {
 	public void setIndex3(Integer index3) {
 		this.index3 = index3;
 	}
+
+	public Integer getIndex4() {
+		return index4;
+	}
+
+	public void setIndex4(Integer index4) {
+		this.index4 = index4;
+	}
+
+	public Integer getIndex5() {
+		return index5;
+	}
+
+	public void setIndex5(Integer index5) {
+		this.index5 = index5;
+	}
+
+	public Integer getIndex6() {
+		return index6;
+	}
+
+	public void setIndex6(Integer index6) {
+		this.index6 = index6;
+	}
+	
 }

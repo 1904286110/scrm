@@ -19,12 +19,23 @@ public class User extends BaseClass implements Serializable {
 	private String parentCode;//上级用户账号
 	
 	private String roleCode;//角色编号
-	
+	private Integer userLevel;//用户级别
 	private Integer userKind;//用户类型#1:超级用户;0:普通用户;
 	private Integer isLock;//是否锁定#1:是;0:否;
 	private Integer loginCount;//登陆次数
 	private String loginIp;//最后登录IP
 	private Date loginDate;//最后登录时间
+	
+	/**/
+	private String roleName;//角色名称
+	
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+	/**/
 	public String getUserName() {
 		return userName;
 	}
@@ -55,6 +66,13 @@ public class User extends BaseClass implements Serializable {
 	public void setRoleCode(String roleCode) {
 		this.roleCode = roleCode;
 	}
+	
+	public Integer getUserLevel() {
+		return userLevel;
+	}
+	public void setUserLevel(Integer userLevel) {
+		this.userLevel = userLevel;
+	}
 	public Integer getUserKind() {
 		return userKind;
 	}
@@ -84,6 +102,12 @@ public class User extends BaseClass implements Serializable {
 	}
 	public void setLoginDate(Date loginDate) {
 		this.loginDate = loginDate;
+	}
+	@Override
+	public String toString() {
+		return "User [userName=" + userName + ", userCode=" + userCode + ", parentCode=" + parentCode + ", roleCode="
+				+ roleCode + ", userLevel=" + userLevel + ", userKind=" + userKind + ", isLock=" + isLock
+				+ ", roleName=" + roleName + "]";
 	}
 
 	

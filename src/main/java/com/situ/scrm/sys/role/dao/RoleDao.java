@@ -24,4 +24,12 @@ public interface RoleDao extends BaseDao<Role> {
 	 * @return
 	 */
 	Role getByName(String roleName);
+	
+	/**
+	 * @Title: getByCode 
+	 * @Description:(根据名称查询实例)
+	 * @param roleCode
+	 * @return
+	 */
+	Role getByCode(String roleCode);
 }

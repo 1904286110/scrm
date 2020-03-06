@@ -1,10 +1,12 @@
 var $; //将jQuery的$拿到外面定义,全局可用。
 var layer;
 //尝试书写公用的JS脚本
-layui.use([ 'layer', 'table', 'form' ], function() {
+layui.use(['laydate', 'layer', 'table', 'form','upload'  ], function() {
 	$ = layui.$;
 	layer = layui.layer;
 	var table = layui.table;
+	 var laydate = layui.laydate;
+	 var upload = layui.upload;
 	var form = layui.form;
 	//为了统一的处理页面上的CRUD，现对页面中出现的各种元素的id,或filter,或class 规定如下。
 	// 页面中使用的URL 用隐藏域 id="hideURL" 提供。
@@ -17,12 +19,19 @@ layui.use([ 'layer', 'table', 'form' ], function() {
 	// 删除按钮的 lay-event="delete"
 	//绑定新增按钮
 	$(document).off('click', '.layui-btn-add').on('click', '.layui-btn-add',function() {
+		var $this = $(this);
 		var url = $('#hideURL').val()+'/form';
 		var title = $('#hideTitle').val()+'新增';
 		//调用通用的弹出form层。 如果此方法中的ajax执行成功 会回调  done方法
 		openBaseLayer(url,title).done(function(){
 			// 让form表单渲染一下。 form_add_edit = <form lay-filter="form_add_edit">
 			form.render(null, 'form_add_edit');
+			//判断是否有需要回调的方法 如: xxxx()
+			var callMethod = $this.data('callback');
+			//判断当前的这个回调方法不为空, 才调用这个方法。
+			if(callMethod){//如果有则尝试进行执行此方法
+				eval(callMethod);
+			}
 		});
 	});
 	
@@ -68,13 +77,16 @@ layui.use([ 'layer', 'table', 'form' ], function() {
 	
    //注：tool 是工具条事件名，filter_table =<table lay-filter="filter_table">
 	table.on('tool(filter_table)',function(obj){
-		 var data = obj.data; //获得当前行数据
+		var $tr = $(obj.tr);//获得当前行 tr 的 DOM 对象（如果有的话）
+		var data = obj.data; //获得当前行数据
 		 var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
 		 //var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
 		 //通过data将要修改的数据的主键 取出
 		 var rowId = data.rowId;
 		switch (layEvent) {
 		case 'edit':
+			//尝试取出修改时需要进行回调的方法名称,不是所有的页面都有。
+			var callback4Edit = $tr.find('a[lay-event="edit"]').data('callback');
 			//打开通用的layer弹层
 			var url = $('#hideURL').val()+'/form';
 			var title = $('#hideTitle').val()+'修改';
@@ -97,6 +109,11 @@ layui.use([ 'layer', 'table', 'form' ], function() {
 						});
 						// 让form表单渲染一下。 form_add_edit = <form lay-filter="form_add_edit">
 						form.render(null, 'form_add_edit');
+						//判断如果 修改form页面弹出后，需要回调的方法名称不为空。
+						if(callback4Edit){
+							//尝试调用一下额外配置的为修改使用的回调函数 
+							eval(callback4Edit);
+						}
 					}
 				});
 			});
@@ -130,40 +147,47 @@ layui.use([ 'layer', 'table', 'form' ], function() {
 			});
 		}
 		break;
-		case 'locked':
-			//让用户再进行一次确认
-			layer.confirm('你确定要锁定码？',function(index){
-				
+		case 'addContact':
+			var custName=data.cusName;
+			if(!custName){
+				custName=data.custName;
+			}
+			var contCode=data.contCode;
+			console.log(data);
+			var url = $('#hideURL').val()+'/form';
+			var title = $('#hideTitle').val()+'新增';
+			//调用通用的弹出form层。 如果此方法中的ajax执行成功 会回调  done方法
+			openBaseLayer(url,title).done(function(){
+				$("#custName").val(custName);
+				$("#contCode").val(contCode);
+				form.render(null, 'form_contact_add');
 				$.ajax({
-					type:'put',
-					url:'user/dolock/'+rowId,
-					success:function(result){
-						if(result){
-							
-							table.reload('list_table');
-							
-							layer.close(index);
-						}
+					type:'get',
+					url:'contact/data',
+					success:function(obj){
+						laydate.render({
+						    elem: '#nextContDate' //指定元素
+						    ,value:	obj
+						  });
 					}
 				});
+				
+				upload.render({
+					elem :'#contUpload',
+					url :'upload', //上传接口
+					accept : 'file', //普通文件
+					field: 'uploadFile', //设定文件域的字段名默认值是file
+					data: {"uploadType":2},//
+					done : function(res) {
+						$('#contFile').val(res.data);
+						
+					}
+				});
+				
 			});
 			break;
-		case 'unlock':{
 
-				$.ajax({
-					type:'put',
-					url:'user/unlock/'+rowId,
-					success:function(result){
-						if(result){
-							
-							table.reload('list_table');
-							
-							layer.closeAll();
-						}
-					}
-				});
-		}
-			break;
+
 		default:
 			break;
 		}

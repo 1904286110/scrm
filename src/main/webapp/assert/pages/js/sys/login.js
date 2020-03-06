@@ -16,7 +16,7 @@
         // 进行登录操作
         form.on('submit(login)', function (data) {
             data = data.field;
-            if (data.username == '') {
+         /*   if (data.username == '') {
                 layer.msg('用户名不能为空');
                 return false;
             }
@@ -27,7 +27,7 @@
             if (data.captcha == '') {
                 layer.msg('验证码不能为空');
                 return false;
-            }
+            }*/
             $.ajax({
        		 type:'get',
        		 url:'dologin',

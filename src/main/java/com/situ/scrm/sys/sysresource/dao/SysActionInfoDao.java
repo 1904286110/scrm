@@ -53,4 +53,6 @@ public interface SysActionInfoDao {
 	 * @param rescCode
 	 */
 	void delete(String rescCode);
+	
+	List<SysActionInfo> find();
 }

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.situ.scrm.sys.customer.dao.CustomerDao">
+	<sql id="customer_base_column">
+		CUS_NAME,CUS_PHONE,CUS_CONTACT,CUS_QQ,CUS_EMAIL,PRO_CODE,CITY_CODE,AREA_CODE,DET_ADDRESS,CUS_TYPE,CUS_KIND,CUS_SOURCE,LAST_CURRENT,CUS_INDUSTRY,IS_PUBLIC,CUS_ENCLOSURE,CUS_INFO,ACTIVE_FLAG,CREATE_BY,CREATE_DATE
+	</sql>
+	<sql id="customer_base_select">
+		SELECT ROW_ID,
+		<include refid="customer_base_column" />
+		, UPDATE_BY,UPDATE_DATE FROM BT_SYS_CUSTOMER WHERE ACTIVE_FLAG = 1
+	</sql>
+	<!-- Column 语句 -->
+	<sql id="column_fragement">
+		<if test="cusName != null">
+			CUS_NAME,
+		</if>
+		<if test="cusPhone != null">
+			CUS_PHONE,
+		</if>
+		<if test="cusContact != null">
+			CUS_CONTACT,
+		</if>
+		<if test="cusQq != null">
+			CUS_QQ,
+		</if>
+		<if test="cusEmail != null">
+			CUS_EMAIL,
+		</if>
+		<if test="proCode != null">
+			PRO_CODE,
+		</if>
+		<if test="cityCode != null">
+			CITY_CODE,
+		</if>
+		<if test="areaCode != null">
+			AREA_CODE,
+		</if>
+		<if test="detAddress != null">
+			DET_ADDRESS,
+		</if>
+		<if test="cusType != null">
+			CUS_TYPE,
+		</if>
+		<if test="cusKind != null">
+			CUS_KIND,
+		</if>
+		<if test="cusSource != null">
+			CUS_SOURCE,
+		</if>
+		<if test="lastCurrent != null">
+			LAST_CURRENT,
+		</if>
+		<if test="cusIndustry != null">
+			CUS_INDUSTRY,
+		</if>
+
+		<if test="isPublic != null">
+			IS_PUBLIC,
+		</if>
+		<if test="cusEnclosure != null">
+			CUS_ENCLOSURE,
+		</if>
+		<if test="cusInfo != null">
+			CUS_INFO,
+		</if>
+		<if test="activeFlag != null">
+			ACTIVE_FLAG,
+		</if>
+		<if test="createBy != null">
+			CREATE_BY,
+		</if>
+		<if test="createDate != null">
+			CREATE_DATE,
+		</if>
+		<if test="updateBy != null">
+			UPDATE_BY,
+		</if>
+		<if test="updateDate != null">
+			UPDATE_DATE,
+		</if>
+	</sql>
+	<!-- Values 语句 -->
+	<sql id="values_fragement">
+		<if test="cusName != null">
+			#{cusName},
+		</if>
+		<if test="cusPhone != null">
+			#{cusPhone},
+		</if>
+		<if test="cusContact != null">
+			#{cusContact},
+		</if>
+		<if test="cusQq != null">
+			#{cusQq},
+		</if>
+		<if test="cusEmail != null">
+			#{cusEmail},
+		</if>
+		<if test="proCode != null">
+			#{proCode},
+		</if>
+		<if test="cityCode != null">
+			#{cityCode},
+		</if>
+		<if test="areaCode != null">
+			#{areaCode},
+		</if>
+		<if test="detAddress != null">
+			#{detAddress},
+		</if>
+		<if test="cusType != null">
+			#{cusType},
+		</if>
+		<if test="cusKind != null">
+			#{cusKind},
+		</if>
+		<if test="cusSource != null">
+			#{cusSource},
+		</if>
+		<if test="lastCurrent != null">
+			#{lastCurrent},
+		</if>
+		<if test="cusIndustry != null">
+			#{cusIndustry},
+		</if>
+
+		<if test="isPublic != null">
+			#{isPublic},
+		</if>
+		<if test="cusEnclosure != null">
+			#{cusEnclosure},
+		</if>
+		<if test="cusInfo != null">
+			#{cusInfo},
+		</if>
+		<if test="activeFlag != null">
+			#{activeFlag},
+		</if>
+		<if test="createBy != null">
+			#{createBy},
+		</if>
+		<if test="createDate != null">
+			#{createDate},
+		</if>
+		<if test="updateBy != null">
+			#{updateBy},
+		</if>
+		<if test="updateDate != null">
+			#{updateDate},
+		</if>
+	</sql>
+	<insert id="save" parameterType="Customer"
+		useGeneratedKeys="true" keyProperty="rowId" keyColumn="ROW_ID">
+		INSERT INTO BT_SYS_CUSTOMER
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<include refid="column_fragement" />
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<include refid="values_fragement" />
+		</trim>
+	</insert>
+	<update id="update" parameterType="Customer">
+		UPDATE BT_SYS_CUSTOMER
+		<set>
+			<if test="cusName != null">
+				CUS_NAME=#{cusName},
+			</if>
+			<if test="cusPhone != null">
+				CUS_PHONE=#{cusPhone},
+			</if>
+			<if test="cusContact != null">
+				CUS_CONTACT=#{cusContact},
+			</if>
+			<if test="cusQq != null">
+				CUS_QQ=#{cusQq},
+			</if>
+			<if test="cusEmail != null">
+				CUS_EMAIL=#{cusEmail},
+			</if>
+			<if test="proCode != null">
+				PRO_CODE=#{proCode},
+			</if>
+			<if test="cityCode != null">
+				CITY_CODE=#{cityCode},
+			</if>
+			<if test="areaCode != null">
+				AREA_CODE=#{areaCode},
+			</if>
+			<if test="detAddress != null">
+				DET_ADDRESS=#{detAddress},
+			</if>
+			<if test="cusType != null">
+				CUS_TYPE=#{cusType},
+			</if>
+			<if test="cusKind != null">
+				CUS_KIND=#{cusKind},
+			</if>
+			<if test="cusSource != null">
+				CUS_SOURCE=#{cusSource},
+			</if>
+			<if test="lastCurrent != null">
+				LAST_CURRENT=#{lastCurrent},
+			</if>
+			<if test="cusIndustry != null">
+				CUS_INDUSTRY=#{cusIndustry},
+			</if>
+
+			<if test="isPublic != null">
+				IS_PUBLIC=#{isPublic},
+			</if>
+			<if test="cusEnclosure != null">
+				CUS_ENCLOSURE=#{cusEnclosure},
+			</if>
+			<if test="cusInfo != null">
+				CUS_INFO=#{cusInfo},
+			</if>
+			<if test="activeFlag != null">
+				ACTIVE_FLAG = #{activeFlag},
+			</if>
+			<if test="createBy != null">
+				CREATE_BY = #{createBy},
+			</if>
+			<if test="createDate != null">
+				CREATE_DATE = #{createDate},
+			</if>
+			<if test="updateBy != null">
+				UPDATE_BY = #{updateBy},
+			</if>
+			<if test="updateDate != null">
+				UPDATE_DATE = #{updateDate},
+			</if>
+		</set>
+		WHERE ROW_ID = #{rowId}
+	</update>
+	<delete id="delete">
+		DELETE FROM BT_SYS_CUSTOMER WHERE ROW_ID = #{rowId}
+	</delete>
+	<select id="get" resultType="Customer">
+		<include refid="customer_base_select" />
+		AND ROW_ID = #{rowId}
+	</select>
+	<select id="find" resultType="Customer">
+		<include refid="customer_base_select" />
+	</select>
+	<select id="getCount" resultType="java.lang.Integer">
+		SELECT COUNT(ROW_ID) FROM BT_SYS_CUSTOMER WHERE ACTIVE_FLAG = 1
+		<!-- 引入多条件查询的语句 -->
+		<include refid="search_fragement" />
+	</select>
+	<select id="findByPage" resultType="Customer">
+		<include refid="customer_base_select" />
+		<!-- 引入多条件查询的语句 -->
+		<include refid="search_fragement" />
+		<!-- 执行分页的语句 -->
+		LIMIT #{pagination.firstResult},#{pagination.maxResults}
+	</select>
+
+	<select id="getByName" resultType="Customer">
+		<include refid="customer_base_select" />
+		AND CUS_NAME=#{cusName}
+	</select>
+  <update id="updateByLastCurrent">
+  
+  UPDATE bt_sys_customer SET IS_PUBLIC=1 WHERE ACTIVE_FLAG = 1
+  AND IS_PUBLIC=0 AND LAST_CURRENT <![CDATA[<]]>#{checkDate}
+  
+  </update>
+
+	<!-- 拼接多条件查询的SQL语句 -->
+	<sql id="search_fragement">
+		<if test="searchParam!=null">
+
+			<if test="searchParam.cusName!=null">
+				AND CUS_NAME = #{searchParam.cusName}
+			</if>
+			<if test="searchParam.cusContact!=null">
+				AND CUS_CONTACT = #{searchParam.cusContact}
+			</if>
+			<if test="searchParam.cusKind != null">
+				AND CUS_KIND = #{searchParam.cusKind}
+			</if>
+			<if test="searchParam.isPublic != null">
+				AND IS_PUBLIC = #{searchParam.isPublic}
+			</if>
+
+		</if>
+	</sql>
+</mapper>

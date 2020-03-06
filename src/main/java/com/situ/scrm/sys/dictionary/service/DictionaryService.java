@@ -1,5 +1,7 @@
 package com.situ.scrm.sys.dictionary.service;
 
+import java.util.List;
+
 import com.situ.scrm.commons.domain.LayResult;
 import com.situ.scrm.sys.dictionary.domain.Dictionary;
 
@@ -58,4 +60,9 @@ public interface DictionaryService {
 	 * @return
 	 */
 	Integer doDeleteDictionary(Long rowId);
+	/**
+	 * 客户类调用的查询
+	 * @return
+	 */
+	List<Dictionary> useDictionaryList();
 }

@@ -42,6 +42,9 @@ public class SysCountServiceImpl implements SysCountService {
 			sysCount.setIndex1(0);
 			sysCount.setIndex2(0);
 			sysCount.setIndex3(0);
+			sysCount.setIndex4(0);
+			sysCount.setIndex5(0);
+			sysCount.setIndex6(0);
 			sysCount.setCreateBy("SYS");
 			sysCount.setCreateDate(new Date());
 			sysCountDao.save(sysCount);

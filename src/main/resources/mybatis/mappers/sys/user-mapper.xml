@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.situ.scrm.sys.user.dao.UserDao">
 	<sql id="user_base_column">
-		USER_NAME,USER_CODE,USER_PASS,PARENT_CODE,ROLE_CODE,USER_KIND,IS_LOCK,LOGIN_COUNT,LOGIN_IP,LOGIN_DATE,ACTIVE_FLAG,CREATE_BY,CREATE_DATE
+		USER_NAME,USER_CODE,USER_PASS,PARENT_CODE,ROLE_CODE,USER_LEVEL,USER_KIND,IS_LOCK,LOGIN_COUNT,LOGIN_IP,LOGIN_DATE,ACTIVE_FLAG,CREATE_BY,CREATE_DATE
 	</sql>
 	<sql id="user_base_select">
 		SELECT ROW_ID,
@@ -27,6 +27,9 @@
 		</if>
 		<if test="roleCode != null">
 			ROLE_CODE,
+		</if>
+		<if test="userLevel != null">
+			USER_LEVEL,
 		</if>
 		<if test="userKind != null">
 			USER_KIND,
@@ -75,6 +78,9 @@
 		</if>
 		<if test="roleCode != null">
 			#{roleCode},
+		</if>
+		<if test="userLevel != null">
+			#{userLevel},
 		</if>
 		<if test="userKind != null">
 			#{userKind},
@@ -133,6 +139,9 @@
 			</if>
 			<if test="roleCode != null">
 				ROLE_CODE = #{roleCode},
+			</if>
+			<if test="userLevel != null">
+				USER_LEVEL = #{userLevel},
 			</if>
 			<if test="userKind != null">
 				USER_KIND = #{userKind},

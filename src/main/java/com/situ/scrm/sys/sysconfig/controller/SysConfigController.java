@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.situ.scrm.sys.role.domain.Role;
 import com.situ.scrm.sys.sysconfig.domain.SysConfig;
 import com.situ.scrm.sys.sysconfig.service.SysConfigService;
 @RestController

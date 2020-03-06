@@ -9,7 +9,7 @@
 	<sql id="dictionary_base_select">
 		SELECT ROW_ID,
 		<include refid="dictionary_base_column" />
-		, UPDATE_BY,UPDATE_DATE FROM BT_SYS_SYS_DICTIONARY WHERE ACTIVE_FLAG = 1
+		, UPDATE_BY,UPDATE_DATE FROM BT_SYS_SYS_DICTIONARY WHERE ACTIVE_FLAG IN (1,0)
 	</sql>
 	<insert id="save" useGeneratedKeys="true" keyProperty="rowId" keyColumn="ROW_ID">
 		INSERT INTO BT_SYS_SYS_DICTIONARY (
@@ -79,7 +79,10 @@
 		<include refid="dictionary_base_select" />
 		AND PARENT_KEY = #{parentKey}
 	</select>
-
+     <select id="findByValue" resultType="Dictionary">
+		<include refid="dictionary_base_select" />
+		AND DICT_VALUE = #{dictValue}
+	</select>
 	<delete id="delete">
 		DELETE FROM BT_SYS_SYS_DICTIONARY WHERE ROW_ID = #{rowId}
 	</delete>

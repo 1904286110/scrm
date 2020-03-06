@@ -31,7 +31,7 @@ public class SysResource extends BaseClass implements Serializable {
 	private Integer hasChild;// 是否有子数据#1:是;0:否;
 
 	// 额外的信息 -开始
-	private List<SysResource> children;// 自元素的数据
+	private List<SysResource> children;// 子元素的数据
 	private List<SysActionInfo> actionInfoList; // 对应的动作集合
 	private String parentName;// 父类资源的名称
 

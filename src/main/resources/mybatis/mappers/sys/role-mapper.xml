@@ -139,6 +139,13 @@
 		<include refid="role_base_select" />
 		AND ROLE_NAME = #{roleName}
 	</select>
+	
+		<select id="getByCode" resultType="Role">
+		<include refid="role_base_select" />
+		AND ROLE_CODE = #{roleCode}
+	</select>
+	
+	
 	<!-- 拼接多条件查询的SQL语句 -->
 	<sql id="search_fragement">
 		<if test="searchParam!=null">

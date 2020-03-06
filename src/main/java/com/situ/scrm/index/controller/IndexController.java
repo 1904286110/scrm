@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.situ.scrm.commons.domain.LayResult;
+import com.situ.scrm.ods.contact.service.ContactService;
 import com.situ.scrm.sys.user.domain.User;
 import com.situ.scrm.sys.user.service.UserService;
 
@@ -31,6 +32,8 @@ public class IndexController implements Serializable {
 	private static final String PAGE_LOGIN = "login";
     @Autowired
 	private UserService userService;
+    @Autowired
+   	private ContactService contactService;
 	/**
 	 * @Title: goIndex 
 	 * @Description:(进系统首页)
@@ -38,7 +41,10 @@ public class IndexController implements Serializable {
 	 * @return
 	 */
 	@GetMapping(path = { "/index", "/" })
-	public ModelAndView goIndex(ModelAndView modelAndView) {
+	public ModelAndView goIndex(ModelAndView modelAndView,HttpSession session) {
+		modelAndView.addObject("resourceList", userService.findAuthResourceList(session));
+		
+		modelAndView.addObject("todoCount", contactService.getToDoCount(session));
 		modelAndView.setViewName(PAGE_INDEX);
 		return modelAndView;
 	}
@@ -51,6 +57,17 @@ public class IndexController implements Serializable {
 	 */
 	@GetMapping(path = { "/login"})
 	public ModelAndView goLogin(ModelAndView modelAndView) {
+		
+		
+		
+		modelAndView.setViewName(PAGE_LOGIN);
+		return modelAndView;
+	}
+	@GetMapping(path = { "/exit"})
+	public ModelAndView goExit(ModelAndView modelAndView) {
+		
+		
+		
 		modelAndView.setViewName(PAGE_LOGIN);
 		return modelAndView;
 	}

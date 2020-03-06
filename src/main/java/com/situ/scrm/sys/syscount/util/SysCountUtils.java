@@ -7,12 +7,16 @@
 package com.situ.scrm.sys.syscount.util;
 
 import java.io.Serializable;
+
 import java.text.DecimalFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +27,7 @@ import com.situ.scrm.sys.syscount.domain.SysCount;
  * @ClassName:SysCountUtils
  * @Description:(生成各种编号的工具类)
  */
+
 @Service
 public class SysCountUtils implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -33,6 +38,7 @@ public class SysCountUtils implements Serializable {
 	@Autowired
 	private SysCountDao sysCountDao;
 
+	
 	// 注入序列表的DAO
 	/**
 	 * @Title: buildRoleCode yyMMdd01
@@ -62,7 +68,7 @@ public class SysCountUtils implements Serializable {
 	 * @return
 	 */
 	public String buildRescCode() {
-		// 要查询的字段名称 INDEX1
+		// 要查询的字段名称 INDEX2
 		String columnName = SysCount.INDEX2;
 		StringBuffer buffer = new StringBuffer(S);
 		// 通过序列表的DAO查询出当前序列的数 :比如说当前序列 是 2
@@ -81,7 +87,7 @@ public class SysCountUtils implements Serializable {
 	 * @return
 	 */
 	public String buildDictKey() {
-		// 要查询的字段名称 INDEX1
+		// 要查询的字段名称 INDEX3
 		String columnName = SysCount.INDEX3;
 		StringBuffer buffer = new StringBuffer(S);
 		// 通过序列表的DAO查询出当前序列的数 :比如说当前序列 是 2
@@ -93,4 +99,20 @@ public class SysCountUtils implements Serializable {
 		sysCountDao.updatePlus(columnName, sequnce);
 		return buffer.toString();
 	}
+	/**
+	 * @Description:(得到跟单编号)
+	 * @return
+	 */
+	public String buildContCode() {
+		String columnName = SysCount.INDEX4;
+		Calendar calendar = Calendar.getInstance();
+		StringBuffer numBuffer = new StringBuffer();
+		numBuffer.append(FORMARt_YY_MM_DD.format(calendar.getTime()));
+		int index = sysCountDao.get(columnName) + 1;
+		numBuffer.append(FOMATER_000.format(index));
+		
+		sysCountDao.updatePlus(columnName, index);;
+		return numBuffer.toString();
+	}
+	
 }

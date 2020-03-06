@@ -55,4 +55,16 @@ public interface RoleResourceDao {
 	 * @param roleResourceList
 	 */
 	void saveBatch(@Param("roleResourceList") List<RoleResource> roleResourceList);
+
+
+	/**
+	 * @Title: findCodeByRole
+	 * @Description:(根据角色Code查询资源CODE集合)
+	 * @param roleCode
+	 * @return
+	 */
+	List<String> findCodeByRole(String roleCode);
+
+
+
 }

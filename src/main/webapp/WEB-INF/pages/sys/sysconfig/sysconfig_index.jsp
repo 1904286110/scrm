@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="auth" uri="/auth-tags" %>
 <div class="layui-fluid">
 	<div class="layui-row layui-col-space15">
 		<div class="layui-col-md12">
@@ -35,7 +36,9 @@
 
 						<div class="layui-form-item">
 							<div class="layui-input-block">
+							<auth:have url="sysconfig" method="put">
 								<button class="layui-btn" lay-submit lay-filter="but_config">立即提交</button>
+							</auth:have>	
 								<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 							</div>
 						</div>

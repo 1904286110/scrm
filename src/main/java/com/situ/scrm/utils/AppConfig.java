@@ -18,4 +18,9 @@ public class AppConfig implements Serializable {
 	public static final String SESSION_IS_SUPPER = "is_supper";
 	// 角色相关的资源信息 (放置在session中)
 	public static final String SESSION_RESOURCE_MAP_ROLE = "resource_map_role";
+   
+	public static final String SESSION_LOGIN_USER = "login_user";
+	public static final Integer CUST_PUBLIC_DAY = 15;
+	public static final Integer CONT_REMIND_DAY = 3;
+
 }

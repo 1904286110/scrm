@@ -51,4 +51,7 @@ public interface DictionaryDao extends BaseDao<Dictionary> {
 	 */
 	Dictionary getByKey(String dictKey);
 	
+	Dictionary findByValue(String dictValue);
+
+	
 }
